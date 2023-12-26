@@ -1,8 +1,8 @@
 -- Language server plugins
 return {
   -- Read about LSP setup here: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/you-might-not-need-lsp-zero.md
-  {'hrsh7th/cmp-nvim-lsp'},
-  {'L3MON4D3/LuaSnip'},
+  { 'hrsh7th/cmp-nvim-lsp' },
+  { 'L3MON4D3/LuaSnip' },
   {
     'hrsh7th/nvim-cmp',
     config = function()
@@ -10,11 +10,11 @@ return {
 
       cmp.setup({
         sources = {
-          {name = 'nvim_lsp'},
+          { name = 'nvim_lsp' },
         },
         mapping = cmp.mapping.preset.insert({
           -- Enter key confirms completion item
-          ['<CR>'] = cmp.mapping.confirm({select = false}),
+          ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
           -- Ctrl + space triggers completion menu
           ['<C-Space>'] = cmp.mapping.complete(),
@@ -35,29 +35,41 @@ return {
 
       -- NOTE: Initialise each LSP you want to use here
       -- In NixOS these LSPs need to be installed in home manager because NixOS cannot run dynamically linked executables (https://nix.dev/guides/faq#how-to-run-non-nix-executables)
-      -- In normal linux distros LSPs can be installed using mason 
+      -- In normal linux distros LSPs can be installed using mason
       lspconfig.lua_ls.setup({})
       lspconfig.rust_analyzer.setup({})
+
+      -- Map this key always
+      vim.keymap.set('n', '<leader>lI', '<cmd>:LspInfo<cr>', {desc = 'Info' })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
         callback = function(event)
-          local opts = {buffer = event.buf}
+          -- Function to set LSP keybinds under <leader>l
+          local function set_lsp_keymap(suffix, command, desc)
+            local full_key = '<leader>l' .. suffix
+            vim.keymap.set('n', full_key, command, {
+              desc = desc,
+              buffer = event.buf
+            })
+          end
 
-          vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-          vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-          vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-          vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-          vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-          vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-          vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-          vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-          vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-          vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+          -- Map these keys on LSP attach only
+          set_lsp_keymap('k', '<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover')
+          set_lsp_keymap('d', '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go to definition')
+          set_lsp_keymap('D', '<cmd>lua vim.lsp.buf.declaration()<cr>', 'Go to declaration')
+          set_lsp_keymap('i', '<cmd>lua vim.lsp.buf.implementation()<cr>', 'Go to implementation')
 
-          vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-          vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
-          vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+          set_lsp_keymap('o', '<cmd>lua vim.lsp.buf.type_definition()<cr>', 'Go to Type definition')
+          set_lsp_keymap('r', '<cmd>lua vim.lsp.buf.references()<cr>', 'References')
+          set_lsp_keymap('s', '<cmd>lua vim.lsp.buf.signature_help()<cr>', 'Signature help')
+          set_lsp_keymap('R', '<cmd>lua vim.lsp.buf.rename()<cr>', 'Rename')
+          set_lsp_keymap('f', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', 'Format')
+          set_lsp_keymap('a', '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code action')
+
+          set_lsp_keymap('l', '<cmd>lua vim.diagnostic.open_float()<cr>', 'Open float diagnostics')
+          set_lsp_keymap('p', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Previous diagnostic')
+          set_lsp_keymap('n', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Next diagnostic')
         end
       })
     end
