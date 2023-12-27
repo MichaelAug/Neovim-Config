@@ -14,10 +14,13 @@ return {
     -- Define group names
     require("which-key").register({
       ["<leader>"] = {
-        f = { name = "File" },
-        l = { name = "LSP" },
-        s = { name = "Search" },
-        c = { name = "Clear" },
+        f = { "File" },
+        l = { "LSP" },
+        s = { "Search" },
+        c = { "Clear" },
+        t = { "Toggle" },
+        h = { "Hunk (git)" },
+        g = { "Git" },
       }
     })
 
