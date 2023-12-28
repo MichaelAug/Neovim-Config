@@ -16,6 +16,17 @@ vim.opt.undofile = true
 
 vim.opt.signcolumn = "yes"
 
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})
+
 vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear search highlight'})
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to system clipboard'})
 vim.keymap.set("n", "<leader>Y", '"+Y', { desc = 'Yank line to system clipboard'})
