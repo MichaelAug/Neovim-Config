@@ -1,10 +1,4 @@
 return {
-  -- Git integration
-  {'tpope/vim-fugitive'},
-
-  -- Github browse
-  {'tpope/vim-rhubarb'},
-
   -- Git signs and hunk actions
   {
     'lewis6991/gitsigns.nvim',

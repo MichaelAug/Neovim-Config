@@ -7,7 +7,7 @@ return {
     config = function()
       local builtin = require("telescope.builtin")
       vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = 'Grep files in current dir' })
-      vim.keymap.set('n', '<leader>b', builtin.buffers, { desc = 'Buffers' })
+      vim.keymap.set('n', '<leader>bb', builtin.buffers, { desc = 'Buffers' })
 
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Files' })
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = 'Help tags' })
