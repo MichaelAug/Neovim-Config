@@ -8,6 +8,6 @@ return {
     "MunifTanjim/nui.nvim",
   },
   config = function()
-    vim.keymap.set('n', '<leader>ft', ':Neotree filesystem reveal right<CR>', { desc = 'File Tree' })
+    vim.keymap.set('n', '<leader>fe', ':Neotree filesystem reveal right<CR>', { desc = 'File Explorer' })
   end
 }
