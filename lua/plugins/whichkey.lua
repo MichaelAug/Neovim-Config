@@ -21,6 +21,7 @@ return {
         t = { "Toggle" },
         h = { "Hunk (git)" },
         g = { "Git" },
+        q = { "Session" },
       }
     })
 

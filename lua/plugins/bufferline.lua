@@ -27,10 +27,16 @@ return {
         },
       },
     },
-  config = function()
-    local bufferline = require('bufferline')
-    bufferline.setup({
-      -- TODO: configure
-    })
-  end
+  config = function(_, opts)
+      require("bufferline").setup(opts)
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd("BufAdd", {
+        callback = function()
+          vim.schedule(function()
+---@diagnostic disable-next-line: undefined-global
+            pcall(nvim_bufferline)
+          end)
+        end,
+      })
+    end,
 }
