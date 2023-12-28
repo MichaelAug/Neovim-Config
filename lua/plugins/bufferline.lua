@@ -16,14 +16,21 @@ return {
   },
   opts = {
       options = {
-        diagnostics = "nvim_lsp",
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = "Neo-tree",
-            highlight = "Directory",
-            text_align = "left",
-          },
+      diagnostics = "nvim_lsp",
+      diagnostics_indicator = function(_, _, diag)
+        local errorIcon = " "
+        local warningIcon  = " "
+        local ret = (diag.error and errorIcon .. diag.error .. " " or "")
+        .. (diag.warning and warningIcon .. diag.warning or "")
+        return vim.trim(ret)
+      end,
+      offsets = {
+        {
+          filetype = "neo-tree",
+          text = "Neo-tree",
+          highlight = "Directory",
+          text_align = "left",
+        },
         },
       },
     },

@@ -2,7 +2,31 @@
 return {
   -- Read about LSP setup here: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/you-might-not-need-lsp-zero.md
   { 'hrsh7th/cmp-nvim-lsp' },
-  { 'L3MON4D3/LuaSnip' },
+  {
+    'L3MON4D3/LuaSnip',
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        -- Load snippets from vscode
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true, silent = true, mode = "i",
+      },
+      { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+    },
+  },
   {
     'hrsh7th/nvim-cmp',
     config = function()

@@ -22,6 +22,7 @@ return {
         h = { "Hunk (git)" },
         g = { "Git" },
         q = { "Session" },
+        x = { "Trouble" },
       }
     })
 
