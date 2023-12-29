@@ -7,6 +7,9 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.scrolloff = 8  -- Show at least 8 lines and the end of file
 vim.opt.termguicolors = true
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 
 -- Do not back up files and add undofile
 vim.opt.swapfile = false
