@@ -97,15 +97,24 @@ return {
   -- nvim LSP functionality
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim"
+    },
     config = function()
       local lspconfig = require("lspconfig")
+
+      require('mason').setup()
+      local mason_lspconfig = require 'mason-lspconfig'
+      mason_lspconfig.setup {
+        ensure_installed = { "pyright", "lua_ls" }
+      }
 
       -- NOTE: Initialise each LSP you want to use here
       -- In NixOS these LSPs need to be installed in home manager because NixOS cannot run dynamically linked executables (https://nix.dev/guides/faq#how-to-run-non-nix-executables)
       -- In normal linux distros LSPs can be installed using mason
       lspconfig.lua_ls.setup({})
-      lspconfig.rust_analyzer.setup({})
-      lspconfig.nil_ls.setup({})
+      lspconfig.pyright.setup ({})
 
       -- Map this key always
       vim.keymap.set("n", "<leader>lI", "<cmd>:LspInfo<cr>", { desc = "Info" })
@@ -152,7 +161,6 @@ return {
         sources = {
           -- invoke formatters with vim.lsp.buf.format() (binding set for this in nvim-lspconfig)
           formatting.stylua,
-          formatting.nixfmt,
         },
       })
     end,

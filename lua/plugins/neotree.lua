@@ -22,6 +22,13 @@ return {
         },
       },
     })
-    vim.keymap.set("n", "<leader>fe", ":Neotree filesystem toggle reveal left<CR>", { desc = "File Explorer" })
-  end,
+    vim.keymap.set('n', '<leader>fe', function()
+      local p = vim.fn.expand "%:p"
+      if vim.fn.filereadable(p) == 1 then
+        vim.cmd(
+          "Neotree action=focus source=filesystem position=left reveal_file=" .. p
+        )
+      end
+    end, { desc = 'File Explorer' })
+  end
 }
