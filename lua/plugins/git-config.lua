@@ -101,4 +101,6 @@ return {
 			require("neogit").setup({})
 		end,
 	},
+
+	{'tpope/vim-fugitive'}
 }
