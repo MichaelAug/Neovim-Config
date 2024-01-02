@@ -10,21 +10,20 @@ return {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   },
-  config = function ()
+  config = function()
     -- Define group names
     require("which-key").register({
       ["<leader>"] = {
         f = { "File" },
         l = { "LSP" },
         s = { "Search" },
-        c = { "Clear" },
+        c = { "Clear/Close" },
         t = { "Toggle" },
         h = { "Hunk (git)" },
         g = { "Git" },
         q = { "Session" },
         x = { "Trouble" },
-      }
+      },
     })
-
-  end
+  end,
 }

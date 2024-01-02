@@ -118,20 +118,11 @@ return {
     config = function()
       local null_ls = require("null-ls")
       local formatting = null_ls.builtins.formatting
-      local code_actions = null_ls.builtins.code_actions
-      -- local completion = null_ls.builtins.completion
 
       null_ls.setup({
         sources = {
-
           -- invoke formatters with vim.lsp.buf.format() (binding set for this in nvim-lspconfig)
           formatting.stylua,
-
-          -- TODO: finish nix and python setup
-          code_actions.statix,
-          --code_actions.gitsigns
-
-          --completion.luasnip
         },
       })
     end,

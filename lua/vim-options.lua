@@ -33,6 +33,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.keymap.set('n', '<leader>cs', ':noh<CR>', { desc = 'Clear search highlight'})
 vim.keymap.set('v', '<leader>y', '"+y', { desc = 'Yank to system clipboard'})
 vim.keymap.set("n", "<leader>Y", '"+Y', { desc = 'Yank line to system clipboard'})
+vim.keymap.set("n", "<leader>ct", ':tabclose<CR>', { desc = 'Close tab'})
 
 -- To find LSP debug log file, run :lua =require('vim.lsp.log').get_filename()
 -- vim.lsp.set_log_level("debug")
