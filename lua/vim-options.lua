@@ -18,6 +18,7 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
 vim.opt.signcolumn = "yes"
+vim.opt.updatetime = 1000
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -36,5 +37,8 @@ vim.keymap.set("n", "<leader>Y", '"+Y', { desc = 'Yank line to system clipboard'
 vim.keymap.set("n", "<leader>ct", ':tabclose<CR>', { desc = 'Close tab'})
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { desc = 'Exit terminal mode'})
 
+-- Tips:
+-- '*' highlights all occurences of a word under the cursor (and lets you search for it with /) 
+--
 -- To find LSP debug log file, run :lua =require('vim.lsp.log').get_filename()
 -- vim.lsp.set_log_level("debug")

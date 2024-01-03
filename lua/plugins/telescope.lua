@@ -30,5 +30,13 @@ return {
       }
       require("telescope").load_extension("ui-select")
     end
+  },
+
+  -- Use telescope for LSP UI
+  {
+    "Slotos/telescope-lsp-handlers.nvim",
+    config = function ()
+      require("telescope-lsp-handlers").setup()
+    end
   }
 }
