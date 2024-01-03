@@ -1,9 +1,11 @@
 -- Nvim Theme
-return {
-  "catppuccin/nvim",
-  name = "catppuccin",
+return
+{
+  "folke/tokyonight.nvim",
+  lazy = false,
   priority = 1000,
-  config = function()
-    vim.cmd.colorscheme "catppuccin-mocha"
+  opts = {},
+  config = function ()
+    vim.cmd.colorscheme "tokyonight-night"
   end
 }

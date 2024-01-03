@@ -52,7 +52,7 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = 'horizon'
+        theme = 'tokyonight'
       }
     },
   },
