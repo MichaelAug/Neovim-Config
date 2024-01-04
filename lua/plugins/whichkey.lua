@@ -23,6 +23,7 @@ return {
         g = { "Git" },
         q = { "Session" },
         x = { "Trouble" },
+        b = { "Buffers" },
       },
     })
   end,
