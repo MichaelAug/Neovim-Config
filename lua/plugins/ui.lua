@@ -5,45 +5,57 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     event = "VeryLazy",
-    config = function ()
+    config = function()
       require("ibl").setup({
         exclude = {
           filetypes = {
-            'lspinfo',
-            'packer',
-            'checkhealth',
-            'help',
-            'man',
-            'dashboard',
-            ''
-          }
-        }
+            "lspinfo",
+            "packer",
+            "checkhealth",
+            "help",
+            "man",
+            "dashboard",
+            "",
+          },
+        },
       })
-    end
+    end,
   },
 
   -- Search highlight
   {
-    'kevinhwang91/nvim-hlslens',
+    "kevinhwang91/nvim-hlslens",
     event = "VeryLazy",
   },
 
   -- Scrollbar
   {
-    'petertriho/nvim-scrollbar',
+    "petertriho/nvim-scrollbar",
 
     event = "VeryLazy",
-    config = function ()
+    config = function()
+      local colors = require("tokyonight.colors").setup()
       require("scrollbar").setup({
+        handle = {
+          color = colors.bg_highlight,
+        },
+        marks = {
+          Search = { color = colors.orange },
+          Error = { color = colors.error },
+          Warn = { color = colors.warning },
+          Info = { color = colors.info },
+          Hint = { color = colors.hint },
+          Misc = { color = colors.purple },
+        },
         handlers = {
           cursor = true,
           diagnostic = true,
           gitsigns = true, -- Requires gitsigns
           handle = true,
           search = true, -- Requires hlslens
-        }
+        },
       })
-    end
+    end,
   },
 
   -- Status line
@@ -52,35 +64,35 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = 'tokyonight'
-      }
+        theme = "tokyonight",
+      },
     },
   },
 
   -- Buffer (tab) view
   {
-    'akinsho/bufferline.nvim',
+    "akinsho/bufferline.nvim",
     event = "VeryLazy",
     version = "*",
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = "nvim-tree/nvim-web-devicons",
     keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>",            desc = "Toggle pin" },
       { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete other buffers" },
-      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
-      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
-      { "<leader>bd", "<Cmd>:bdelete<CR>", desc = "Delete buffer" },
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>",          desc = "Delete other buffers" },
+      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>",           desc = "Delete buffers to the right" },
+      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>",            desc = "Delete buffers to the left" },
+      { "<leader>bd", "<Cmd>:bdelete<CR>",                       desc = "Delete buffer" },
+      { "<S-h>",      "<cmd>BufferLineCyclePrev<cr>",            desc = "Prev buffer" },
+      { "<S-l>",      "<cmd>BufferLineCycleNext<cr>",            desc = "Next buffer" },
     },
     opts = {
       options = {
         diagnostics = "nvim_lsp",
         diagnostics_indicator = function(_, _, diag)
           local errorIcon = " "
-          local warningIcon  = " "
+          local warningIcon = " "
           local ret = (diag.error and errorIcon .. diag.error .. " " or "")
-          .. (diag.warning and warningIcon .. diag.warning or "")
+              .. (diag.warning and warningIcon .. diag.warning or "")
           return vim.trim(ret)
         end,
         offsets = {
@@ -105,5 +117,5 @@ return {
         end,
       })
     end,
-  }
+  },
 }
