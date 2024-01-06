@@ -85,6 +85,7 @@ return {
 				vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Diff view open" }),
 				vim.keymap.set("n", "<leader>gD", ":DiffviewClose<CR>", { desc = "Diff view close" }),
 				vim.keymap.set("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Diff view file history (git log)" }),
+				vim.keymap.set("n", "<leader>gR", ":DiffviewRefresh<CR>", { desc = "Diff view refresh" }),
 			})
 		end,
 	},
