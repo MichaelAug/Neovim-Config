@@ -1,7 +1,7 @@
 -- General nvim options
 vim.g.mapleader = " "
 
-vim.opt.nu = true -- Line numbers
+vim.opt.nu = true             -- Line numbers
 vim.opt.relativenumber = true -- Relative line numbers
 vim.opt.expandtab = true
 vim.opt.smartindent = true
@@ -39,21 +39,30 @@ vim.keymap.set("n", "<leader>ct", ":tabclose<CR>", { desc = "Close tab" })
 -- Set up keybinds for terminal mode
 function _G.set_terminal_keymaps()
 	local opts = { buffer = 0 }
+	-- Escape terminal mode
 	vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-	vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+	-- Move to window from terminal mode
 	vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
 	vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
 	vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
 	vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+
+	-- Window modifier from terminal mode
 	vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
-vim.keymap.set("n", "<C-h>", "<C-w>h", {})
-vim.keymap.set("n", "<C-j>", "<C-w>j", {})
-vim.keymap.set("n", "<C-k>", "<C-w>k", {})
-vim.keymap.set("n", "<C-l>", "<C-w>l", {})
+-- Window keybinds
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to right window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to up window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+vim.keymap.set("n", "<C-UP>", "<C-w>+", { desc = "Increase height of window" })
+vim.keymap.set("n", "<C-DOWN>", "<C-w>-", { desc = "Decrease height of window" })
+vim.keymap.set("n", "<C-LEFT>", "<C-w><", { desc = "Decrease width of window" })
+vim.keymap.set("n", "<C-RIGHT>", "<C-w>>", { desc = "Increase width of window" })
+
 -- Tips:
 -- '*' highlights all occurences of a word under the cursor (and lets you search for it with /)
 --

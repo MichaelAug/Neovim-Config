@@ -60,10 +60,10 @@ return {
 				map("n", "<leader>gb", function()
 					gs.blame_line({ full = false })
 				end, { desc = "git blame line" })
-				map("n", "<leader>gd", gs.diffthis, { desc = "git diff against index" })
-				map("n", "<leader>gD", function()
-					gs.diffthis("~")
-				end, { desc = "git diff against last commit" })
+				-- map("n", "<leader>gd", gs.diffthis, { desc = "git diff against index" })
+				-- map("n", "<leader>gD", function()
+				-- 	gs.diffthis("~")
+				-- end, { desc = "git diff against last commit" })
 				-- Toggles
 				map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "toggle git blame line" })
 				map("n", "<leader>td", gs.toggle_deleted, { desc = "toggle git show deleted" })
@@ -77,28 +77,15 @@ return {
 	-- Git diff view
 	-- NOTE: diffview shortcuts will only be active in diffview.
 	-- If there are conflicting shortcuts, diffview shortcuts will be used when executed quickly (before which-key menu is shown)
+	-- TIP: use <leader>b to hide file menu and go to right window
 	{
 		"sindrets/diffview.nvim",
 		config = function()
 			require("diffview").setup({
-				vim.keymap.set("n", "<leader>gv", ":DiffviewOpen<CR>", { desc = "Diff view" }),
+				vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Diff view open" }),
+				vim.keymap.set("n", "<leader>gD", ":DiffviewClose<CR>", { desc = "Diff view close" }),
+				vim.keymap.set("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Diff view file history (git log)" }),
 			})
-		end,
-	},
-
-	-- Git interface
-	-- NOTE: this will generate warning:
-	-- - WARNING Configured `hg_cmd` is not executable: 'hg'
-	-- hg is Mercurial which is not used
-	{
-		"NeogitOrg/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-			"nvim-telescope/telescope.nvim", -- optional
-		},
-		config = function()
-			require("neogit").setup({})
 		end,
 	},
 
