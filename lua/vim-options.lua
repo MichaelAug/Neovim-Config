@@ -63,6 +63,8 @@ vim.keymap.set("n", "<C-DOWN>", "<C-w>-", { desc = "Decrease height of window" }
 vim.keymap.set("n", "<C-LEFT>", "<C-w><", { desc = "Decrease width of window" })
 vim.keymap.set("n", "<C-RIGHT>", "<C-w>>", { desc = "Increase width of window" })
 
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move lines up" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move lines down" })
 -- Tips:
 -- '*' highlights all occurences of a word under the cursor (and lets you search for it with /)
 --
