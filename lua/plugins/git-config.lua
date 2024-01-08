@@ -82,11 +82,25 @@ return {
 		"sindrets/diffview.nvim",
 		config = function()
 			require("diffview").setup({
-				vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Diff view open" }),
-				vim.keymap.set("n", "<leader>gD", ":DiffviewClose<CR>", { desc = "Diff view close" }),
-				vim.keymap.set("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Diff view file history (git log)" }),
-				vim.keymap.set("n", "<leader>gR", ":DiffviewRefresh<CR>", { desc = "Diff view refresh" }),
+				enhanced_diff_hl = true,
+				view = {
+					default = {
+						-- Config for changed files, and staged files in diff views.
+						layout = "diff2_horizontal",
+						winbar_info = true,          -- See ':h diffview-config-view.x.winbar_info'
+					},
+					merge_tool = {
+						-- Config for conflicted files in diff views during a merge or rebase.
+						layout = "diff3_mixed",
+						disable_diagnostics = false,
+						winbar_info = true,           -- See ':h diffview-config-view.x.winbar_info'
+					},
+				},
 			})
+			vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Diff view open" })
+			vim.keymap.set("n", "<leader>gD", ":DiffviewClose<CR>", { desc = "Diff view close" })
+			vim.keymap.set("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Diff view file history (git log)" })
+			vim.keymap.set("n", "<leader>gR", ":DiffviewRefresh<CR>", { desc = "Diff view refresh" })
 		end,
 	},
 
