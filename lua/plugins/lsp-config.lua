@@ -5,41 +5,14 @@ return {
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
+      "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
-      config = function()
-        -- Load snippets from vscode
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
     },
-    opts = {
-      history = true,
-      delete_check_events = "TextChanged",
-    },
-    keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = "i",
-      },
-      {
-        "<tab>",
-        function()
-          require("luasnip").jump(1)
-        end,
-        mode = "s",
-      },
-      {
-        "<s-tab>",
-        function()
-          require("luasnip").jump(-1)
-        end,
-        mode = { "i", "s" },
-      },
-    },
+    config = function()
+      -- Load snippets from vscode
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+    opts = {},
   },
   {
     "hrsh7th/nvim-cmp",
@@ -51,15 +24,10 @@ return {
         return col ~= 0
             and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
-
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
       cmp.setup({
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-        },
         -- TAB to autocomplete or cycle through options
         -- SHIFT-TAB to cycle in reverse
         mapping = cmp.mapping.preset.insert({
@@ -83,6 +51,9 @@ return {
               fallback()
             end
           end, { "i", "s" }),
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
           ["<c-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
@@ -91,6 +62,12 @@ return {
             require("luasnip").lsp_expand(args.body)
           end,
         },
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'luasnip' },
+        }, {
+            { name = 'buffer' },
+          })
       })
     end,
   },
@@ -99,13 +76,25 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
-
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       -- NOTE: Initialise each LSP you want to use here
       -- In NixOS these LSPs need to be installed in home manager because NixOS cannot run dynamically linked executables (https://nix.dev/guides/faq#how-to-run-non-nix-executables)
       -- In normal linux distros LSPs can be installed using mason
-      lspconfig.lua_ls.setup({})
-      lspconfig.rust_analyzer.setup({})
-      lspconfig.nil_ls.setup({})
+      -- Make sure to advertise cmp_nvim_lsp capabilities to language servers
+      lspconfig.lua_ls.setup({
+        capabilities = capabilities,
+        settings = {
+          completion = {
+            callSnippet = "Both"
+          }
+        }
+      })
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities
+      })
+      lspconfig.nil_ls.setup({
+        capabilities = capabilities
+      })
 
       -- Map this key always
       vim.keymap.set("n", "<leader>lI", "<cmd>:LspInfo<cr>", { desc = "Info" })
