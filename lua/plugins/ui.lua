@@ -131,4 +131,10 @@ return {
 		},
 		opts = {},
 	},
+
+	-- Pins buffers to windows in toggleterm, neo-tree, vim-fugitive etc. windows
+	{
+		'stevearc/stickybuf.nvim',
+		opts = {},
+	}
 }
