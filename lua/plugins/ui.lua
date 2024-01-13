@@ -49,12 +49,24 @@ return {
 	-- Status line
 	{
 		"nvim-lualine/lualine.nvim",
+		dependencies = {
+			"WhoIsSethDaniel/lualine-lsp-progress.nvim",
+		},
 		event = "VeryLazy",
 		opts = {
 			options = {
 				theme = "auto",
 			},
 		},
+		config = function()
+			require("lualine").setup({
+				sections = {
+					lualine_c = {
+						"lsp_progress",
+					},
+				},
+			})
+		end,
 	},
 
 	-- Buffer (tab) view
@@ -118,5 +130,5 @@ return {
 			"nvim-tree/nvim-web-devicons", -- optional dependency
 		},
 		opts = {},
-	}
+	},
 }
