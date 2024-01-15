@@ -91,7 +91,7 @@ return {
 					},
 					merge_tool = {
 						-- Config for conflicted files in diff views during a merge or rebase.
-						layout = "diff3_mixed",
+						layout = "diff3_horizontal",
 						disable_diagnostics = false,
 						winbar_info = true,           -- See ':h diffview-config-view.x.winbar_info'
 					},
