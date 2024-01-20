@@ -51,9 +51,9 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
           ["<c-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
         }),
@@ -63,11 +63,11 @@ return {
           end,
         },
         sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
         }, {
-            { name = 'buffer' },
-          })
+          { name = "buffer" },
+        }),
       })
     end,
   },
@@ -76,7 +76,7 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
       -- NOTE: Initialise each LSP you want to use here
       -- In NixOS these LSPs need to be installed in home manager because NixOS cannot run dynamically linked executables (https://nix.dev/guides/faq#how-to-run-non-nix-executables)
       -- In normal linux distros LSPs can be installed using mason
@@ -85,15 +85,32 @@ return {
         capabilities = capabilities,
         settings = {
           completion = {
-            callSnippet = "Both"
-          }
-        }
+            callSnippet = "Both",
+          },
+        },
       })
       lspconfig.rust_analyzer.setup({
-        capabilities = capabilities
+        capabilities = capabilities,
       })
       lspconfig.nil_ls.setup({
-        capabilities = capabilities
+        capabilities = capabilities,
+      })
+
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        -- https://github.com/microsoft/pyright/blob/main/docs/settings.md
+        settings = {
+          python = {
+            analysis = {
+              autoImportCompletion = true,
+              autoSearchPaths = true,
+              diagnosticMode = "openFilesOnly",
+              useLibraryCodeForTypes = true,
+              typeCheckingMode = "off", -- Try turning this on and cry at all the errors
+            },
+          },
+        },
       })
 
       -- Map this key always
@@ -135,13 +152,14 @@ return {
     "nvimtools/none-ls.nvim",
     config = function()
       local null_ls = require("null-ls")
-      local formatting = null_ls.builtins.formatting
 
       null_ls.setup({
         sources = {
           -- invoke formatters with vim.lsp.buf.format() (binding set for this in nvim-lspconfig)
-          formatting.stylua,
-          formatting.nixfmt,
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.nixfmt,
+          null_ls.builtins.formatting.black, -- Python formatter
+          null_ls.builtins.diagnostics.ruff, -- Python diagnostics
         },
       })
     end,

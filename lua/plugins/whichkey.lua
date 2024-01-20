@@ -24,6 +24,7 @@ return {
         q = { "Session" },
         x = { "Trouble" },
         b = { "Buffers" },
+        d = { "Debug" },
       },
     })
   end,
