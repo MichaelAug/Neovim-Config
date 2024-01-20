@@ -38,6 +38,7 @@ vim.keymap.set("n", "<leader>cs", ":noh<CR>", { desc = "Clear search highlight" 
 vim.keymap.set("v", "<leader>y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to system clipboard" })
 vim.keymap.set("n", "<leader>ct", ":tabclose<CR>", { desc = "Close tab" })
+vim.keymap.set("n", "<leader>R", "bufdo! e<CR>", { desc = "Reload all buffers (force)" })
 
 -- Set up keybinds for terminal mode
 function _G.set_terminal_keymaps()
