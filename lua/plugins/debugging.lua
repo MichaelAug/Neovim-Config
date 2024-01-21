@@ -6,6 +6,8 @@ return {
 			local dap, dapui = require("dap"), require("dapui")
 			require("dapui").setup()
 
+			-- vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+
 			dap.adapters.codelldb = {
 				type = "server",
 				port = "${port}",
@@ -77,11 +79,14 @@ return {
 		end,
 	},
 	{
-		-- TODO: still WIP, finish this
-		'mfussenegger/nvim-dap-python',
-		config = function ()
+		"mfussenegger/nvim-dap-python",
+		config = function()
 			-- Install debugpy in a virtualenv to use
-			require('dap-python').setup('env/debugpy/bin/python')
-		end
-	}
+			local current_working_directory = vim.fn.getcwd()
+			local venv_name = "/env/" -- Change this if your venv directory name is different!
+
+			-- This needs to point to the python executable in your virtual environment
+			require("dap-python").setup(current_working_directory .. venv_name .. "/bin/python")
+		end,
+	},
 }

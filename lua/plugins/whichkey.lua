@@ -18,7 +18,7 @@ return {
         l = { "LSP" },
         s = { "Search" },
         c = { "Clear/Close" },
-        t = { "Toggle" },
+        t = { "Test" },
         h = { "Hunk (git)" },
         g = { "Git" },
         q = { "Session" },
