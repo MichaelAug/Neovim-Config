@@ -113,6 +113,10 @@ return {
         },
       })
 
+      lspconfig.bashls.setup({
+        capabilities = capabilities,
+      })
+
       -- Map this key always
       vim.keymap.set("n", "<leader>lI", "<cmd>:LspInfo<cr>", { desc = "Info" })
 
@@ -158,8 +162,11 @@ return {
           -- invoke formatters with vim.lsp.buf.format() (binding set for this in nvim-lspconfig)
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.nixfmt,
+          null_ls.builtins.formatting.shfmt,
           null_ls.builtins.formatting.black, -- Python formatter
+
           null_ls.builtins.diagnostics.ruff, -- Python diagnostics
+          null_ls.builtins.diagnostics.shellcheck,
         },
       })
     end,
