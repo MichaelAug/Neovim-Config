@@ -112,4 +112,5 @@ return {
 	{'tpope/vim-fugitive'},
 
 	{'akinsho/git-conflict.nvim', version = "*", config = true}
+	-- TODO: add lazygit integration
 }
