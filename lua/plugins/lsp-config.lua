@@ -119,6 +119,11 @@ return {
 					},
 				},
 			})
+
+			lspconfig.bashls.setup({
+					capabilities = capabilities,
+				})
+
 			-- Map this key always
 			vim.keymap.set("n", "<leader>lI", "<cmd>:LspInfo<cr>", { desc = "Info" })
 
@@ -146,24 +151,31 @@ return {
 					set_lsp_keymap("<leader>lf", "<cmd>lua vim.lsp.buf.format({async = true})<cr>", "Format")
 					set_lsp_keymap("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action")
 
-					set_lsp_keymap("<leader>ll", "<cmd>lua vim.diagnostic.open_float()<cr>", "Open float diagnostics")
-					set_lsp_keymap("<leader>lp", "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous diagnostic")
-					set_lsp_keymap("<leader>ln", "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next diagnostic")
-				end,
-			})
-		end,
-	},
-	{
-		"nvimtools/none-ls.nvim",
-		config = function()
-			local null_ls = require("null-ls")
-			null_ls.setup({
-				sources = {
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.black, -- Python formatter
-					null_ls.builtins.diagnostics.ruff, -- Python diagnostics
-				},
-			})
-		end,
-	},
+          set_lsp_keymap("<leader>ll", "<cmd>lua vim.diagnostic.open_float()<cr>", "Open float diagnostics")
+          set_lsp_keymap("<leader>lp", "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous diagnostic")
+          set_lsp_keymap("<leader>ln", "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next diagnostic")
+        end,
+      })
+    end,
+  },
+
+  {
+    "nvimtools/none-ls.nvim",
+    config = function()
+      local null_ls = require("null-ls")
+
+      null_ls.setup({
+        sources = {
+          -- invoke formatters with vim.lsp.buf.format() (binding set for this in nvim-lspconfig)
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.nixfmt,
+          null_ls.builtins.formatting.shfmt,
+          null_ls.builtins.formatting.black, -- Python formatter
+
+          null_ls.builtins.diagnostics.ruff, -- Python diagnostics
+          null_ls.builtins.diagnostics.shellcheck,
+        },
+      })
+    end,
+  },
 }
