@@ -124,8 +124,16 @@ return {
 					capabilities = capabilities,
 				})
 
-			-- Map this key always
-			vim.keymap.set("n", "<leader>lI", "<cmd>:LspInfo<cr>", { desc = "Info" })
+      lspconfig.clangd.setup({
+        -- on_attach = function (client, bufnr)
+        --   client.server_capabilities.signatureHelpProvider = false
+        --   on_attach(client, bufnr)
+        -- end,
+        capabilities = capabilities,
+      })
+
+      -- Map this key always
+      vim.keymap.set("n", "<leader>lI", "<cmd>:LspInfo<cr>", { desc = "Info" })
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
@@ -171,6 +179,7 @@ return {
           null_ls.builtins.formatting.nixfmt,
           null_ls.builtins.formatting.shfmt,
           null_ls.builtins.formatting.black, -- Python formatter
+          null_ls.builtins.formatting.clang_format,
 
           null_ls.builtins.diagnostics.ruff, -- Python diagnostics
           null_ls.builtins.diagnostics.shellcheck,
