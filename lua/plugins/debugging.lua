@@ -114,12 +114,9 @@ return {
 	{
 		"mfussenegger/nvim-dap-python",
 		config = function()
-			-- Install debugpy in a virtualenv to use
-			local current_working_directory = vim.fn.getcwd()
-			local venv_name = "/env/" -- Change this if your venv directory name is different!
-
-			-- This needs to point to the python executable in your virtual environment
-			require("dap-python").setup(current_working_directory .. venv_name .. "/bin/python")
+			-- This needs to point to the python executable in your virtual environment that has debugpy installed
+			-- it can be separate to your dev environment
+			require("dap-python").setup("~\\Documents\\.virtualenvs\\debugpy\\Scripts\\python.exe")
 		end,
 	},
 }

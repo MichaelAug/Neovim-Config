@@ -76,12 +76,42 @@ return {
 
 	{ "tpope/vim-fugitive" },
 	{
+		"sindrets/diffview.nvim",
+		config = function()
+			require("diffview").setup({
+				enhanced_diff_hl = true,
+				view = {
+					default = {
+						-- Config for changed files, and staged files in diff views.
+						layout = "diff2_horizontal",
+						winbar_info = true, -- See ':h diffview-config-view.x.winbar_info'
+					},
+					merge_tool = {
+						-- Config for conflicted files in diff views during a merge or rebase.
+						layout = "diff3_horizontal",
+						disable_diagnostics = false,
+						winbar_info = true, -- See ':h diffview-config-view.x.winbar_info'
+					},
+				},
+			})
+			vim.keymap.set("n", "<leader>gd", function()
+				if next(require("diffview.lib").views) == nil then
+					vim.cmd("DiffviewOpen")
+				else
+					vim.cmd("DiffviewClose")
+				end
+			end, { desc = "Diff view toggle" })
+			vim.keymap.set("n", "<leader>gf", ":DiffviewFileHistory<CR>", { desc = "Diff view file history (git log)" })
+			vim.keymap.set("n", "<leader>gR", ":DiffviewRefresh<CR>", { desc = "Diff view refresh" })
+		end,
+	},
+	{
 		"kdheepak/lazygit.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
-		config = function ()
+		config = function()
 			vim.keymap.set("n", "<C-g>", ":LazyGit<CR>", { desc = "Open LazyGit" })
-		end
+		end,
 	},
 }
