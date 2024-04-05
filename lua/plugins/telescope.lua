@@ -5,6 +5,15 @@ return {
 		tag = "0.1.5",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
+			require("telescope").setup({
+				pickers = {
+					buffers = {
+						ignore_current_buffer = true,
+						sort_mru = true,
+					},
+				},
+			})
+
 			local builtin = require("telescope.builtin")
 			local utils = require("telescope.utils")
 			vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Grep files in current dir" })
@@ -18,7 +27,7 @@ return {
 			vim.keymap.set("n", "<leader>sF", function()
 				builtin.find_files({ cwd = utils.buffer_dir() })
 			end, { desc = "Files in current buffer directory" })
-			vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "Buffers" })
+			vim.keymap.set("n", "<leader>sb", builtin.buffers, { desc = "Buffers (sorted last used)" })
 			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Help tags" })
 			vim.keymap.set("n", "<leader>sr", builtin.oldfiles, { desc = "Recent files" })
 			vim.keymap.set("n", "<leader>sc", builtin.commands, { desc = "Commands" })
