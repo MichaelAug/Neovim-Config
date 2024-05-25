@@ -46,27 +46,11 @@ return {
 		end,
 	},
 
-	-- Status line
 	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = {
-			"WhoIsSethDaniel/lualine-lsp-progress.nvim",
-		},
-		event = "VeryLazy",
+		"j-hui/fidget.nvim",
 		opts = {
-			options = {
-				theme = "auto",
-			},
+			-- options
 		},
-		config = function()
-			require("lualine").setup({
-				sections = {
-					lualine_c = {
-						"lsp_progress",
-					},
-				},
-			})
-		end,
 	},
 
 	-- Buffer (tab) view
