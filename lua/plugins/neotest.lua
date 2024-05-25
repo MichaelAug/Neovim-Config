@@ -2,17 +2,22 @@ return {
 	{
 		"nvim-neotest/neotest",
 		dependencies = {
+			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
+
 			"nvim-neotest/neotest-python",
 			"rouge8/neotest-rust",
+			"alfaix/neotest-gtest"
 		},
 		config = function()
 			local neotest = require("neotest")
 			neotest.setup({
 				adapters = {
 					require("neotest-python"),
-					require("neotest-rust"), -- Use cargo-nextest for this
+					require("neotest-rust"),
+					require("neotest-gtest").setup({})
 				},
 			})
 			vim.keymap.set("n", "<leader>tr",function() neotest.run.run() end, { desc = "Run nearest test" })
