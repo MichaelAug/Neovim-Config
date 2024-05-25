@@ -57,13 +57,13 @@ return {
 
 			-- set up keybinds
 			vim.keymap.set("n", "<F5>", function() dap.continue() end, { desc = "Continue" })
+			vim.keymap.set("n", "<F6>", function() dap.step_over() end, { desc = "Step over" })
+			vim.keymap.set("n", "<F7>", function() dap.step_into() end, { desc = "Step into" })
+			vim.keymap.set("n", "<F8>", function() dap.step_out() end, { desc = "Step out" })
 			vim.keymap.set("n", "<leader>dr", function() dap.restart() end, { desc = "Restart session" })
 			vim.keymap.set("n", "<leader>dt", function() dap.terminate() end, { desc = "Terminate session" })
 			vim.keymap.set("n", "<leader>dC", function() dap.clear_breakpoints() end, { desc = "Clear breakpoints" })
 			vim.keymap.set("n", "<leader>du", function() dap.reverse_continue() end, { desc = "Reverse continue" })
-			vim.keymap.set("n", "<F1>", function() dap.step_over() end, { desc = "Step over" })
-			vim.keymap.set("n", "<F2>", function() dap.step_into() end, { desc = "Step into" })
-			vim.keymap.set("n", "<F3>", function() dap.step_out() end, { desc = "Step out" })
 			vim.keymap.set("n", "<Leader>db", function() dap.toggle_breakpoint() end, { desc = "Toggle breakpoint" })
 			vim.keymap.set("n", "<Leader>dB", function() dap.set_breakpoint() end, { desc = "Set breakpoint" })
 
