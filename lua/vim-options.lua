@@ -21,7 +21,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 1000
 
 -- Disable mouse
-vim.opt.mouse = ""
+-- vim.opt.mouse = ""
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
