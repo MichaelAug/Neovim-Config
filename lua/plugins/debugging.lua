@@ -70,7 +70,7 @@ return {
 			-- Eval var under cursor
 			vim.keymap.set("n", "<space>?", function()
 				dapui.eval(nil, { enter = true })
-			end)
+			end, { desc = "(Debug) Evaluate variable under cursor" })
 			-- stylua: ignore end
 		end,
 	},

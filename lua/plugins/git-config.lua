@@ -57,15 +57,6 @@ return {
 
 				map("n", "<leader>gr", gs.reset_buffer, { desc = "git Reset buffer" })
 				map("n", "<leader>gs", gs.stage_buffer, { desc = "git Stage buffer" })
-				map("n", "<leader>gb", function()
-					gs.blame_line({ full = false })
-				end, { desc = "git blame line" })
-				-- map("n", "<leader>gd", gs.diffthis, { desc = "git diff against index" })
-				-- map("n", "<leader>gD", function()
-				-- 	gs.diffthis("~")
-				-- end, { desc = "git diff against last commit" })
-				-- Toggles
-				map("n", "<leader>gB", gs.toggle_current_line_blame, { desc = "toggle git blame line" })
 				map("n", "<leader>gD", gs.toggle_deleted, { desc = "toggle git show deleted" })
 
 				-- Text object
@@ -119,4 +110,13 @@ return {
 			vim.keymap.set("n", "<C-g>", ":LazyGit<CR>", { desc = "Open LazyGit" })
 		end
 	},
+	{
+		"FabijanZulj/blame.nvim",
+		config = function()
+			require("blame").setup()
+
+			vim.keymap.set("n", "<leader>gb", ":BlameToggle window<CR>", { desc = "Toggle blame window" })
+		end
+	}
+
 }
