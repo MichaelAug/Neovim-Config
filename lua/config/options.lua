@@ -6,6 +6,5 @@ vim.o.title = true
 
 -- Set these when using Neovide
 if vim.g.neovide then
-    vim.o.guifont = "Source Code Pro:h11"
+  vim.o.guifont = "Source Code Pro:h11"
 end
-
